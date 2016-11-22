@@ -10,7 +10,7 @@ public class XString{
 		 * Clear the current string builder and the append the received string
 		 * */
 		if(text == null)
-			throw new NullPointerException();
+			throw new NullPointerException("Cannot set to null");
 		this.text.delete(0,length).append(txt);
 		length = txt.length();
 	}
@@ -19,7 +19,7 @@ public class XString{
 	}
 	public XString append(String name) {
 		if(name == null)
-			throw new NullPointerException();
+			throw new NullPointerException("Can't append null");
 		this.text.append(name);
 		length +=name.length(); 
 		return this;
