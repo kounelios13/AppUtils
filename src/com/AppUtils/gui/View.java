@@ -1,8 +1,6 @@
 package com.AppUtils.gui;
 
 import com.AppUtils.interfaces.IView;
-
-import interfaces.IView;
 import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public abstract class View extends JFrame implements IView{
