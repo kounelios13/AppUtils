@@ -1,18 +1,13 @@
 package com.AppUtils.gui;
 import static messages.Message.error;
 import static messages.Message.info;
-import static messages.Message.warning;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.logging.FileHandler;
 import java.util.stream.Stream;
 
 import javax.swing.DefaultComboBoxModel;
@@ -20,16 +15,15 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
-
+import com.AppUtils.extra.FileHandler;
+import com.AppUtils.extra.ResourceLoader;
+import com.AppUtils.extra.Settings;
 import com.AppUtils.interfaces.UIPreferences;
 
-import gui.CustomColorChooser;
 import net.miginfocom.swing.MigLayout;
-import serializable.Settings;
 @SuppressWarnings({"static-access", "serial"})
 public class PreferencesManager extends View implements UIPreferences{
 	private ApplicationScreen appFrame;
@@ -42,6 +36,7 @@ public class PreferencesManager extends View implements UIPreferences{
 	private JSlider buttonSlider = new JSlider(JSlider.HORIZONTAL, 1, 100, 18),
 					labelSlider  = new JSlider(JSlider.HORIZONTAL, 1, 100, 18);
 	private CustomColorChooser colorChooser = new CustomColorChooser(this);
+	@SuppressWarnings("unused")
 	private File settingsFile = new File("app" + sep + "settings.dat"),
 						  dir = new File("app");
 	private Settings settings = new Settings();
@@ -61,7 +56,10 @@ public class PreferencesManager extends View implements UIPreferences{
 		return settingsFile.exists();
 	}
 	private boolean isNull(Object ...o){
-		return FileHandler.isNull(o);
+		for(Object obj:o)
+			if(obj == null)
+				return true;
+		return false;
 	}
 	private void updateSliders() {
 		settings.setBtnSize(buttonSlider.getValue());
@@ -157,43 +155,7 @@ public class PreferencesManager extends View implements UIPreferences{
 	}
 	@Override
 	public void savePreferences(){
-		if (!dir.exists())
-			dir.mkdirs();
-		try {
-			ObjectOutputStream out = new ObjectOutputStream(
-					new FileOutputStream(settingsFile));
-			out.writeObject(settings);
-			out.close();
-		} catch (FileNotFoundException e) {
-			fh.log(e.getMessage());
-			try {
-				settingsFile.createNewFile();
-			} catch (IOException e1) {
-				error("Can't save preferences");
-				fh.log(e1.getMessage());
-			} finally {
-				if (settingsFile.exists()) {
-					info("Created preferences file");
-					// Created needed file.Re-execute to save
-					savePreferences();
-				}
-			}
-		} catch (IOException io) {
-			error( "IOException occured", "IO");
-			fh.log(io.getMessage());
-		}
-		if(!settingsFile.exists())
-		{
-			/**
-			 * Apply current settings even if we can't save them
-			 * but let the user know it
-			 * */
-			String msg = "Settings will be applied but they could not be saved.Next time you open the program these settings will not exist";
-			warning(msg);
-			fh.log(msg);
-		}
-		applySettings();
-		this.setVisible(false);
+		
 	}
 	public void editPreferences() {
 		this.setVisible(true);
@@ -284,33 +246,7 @@ public class PreferencesManager extends View implements UIPreferences{
 		}
 	}
 	public void deleteAppSettings() {
-		File dir = new File("app");
-		if (!dir.exists() || dir.listFiles().length < 1) {
-			error(prefPanel, "No files to delete");
-			return;
-		}
-		boolean delete = JOptionPane
-				.showConfirmDialog(null,
-						"Are you sure you want to delete settings and app related files?") == JOptionPane.OK_OPTION;
-		if (!delete) {
-			error(prefPanel, "Operation cancelled");
-			return;
-		}
-		try {
-			FileUtils.deleteDirectory(dir);
-		} catch (IOException exc) {
-			fh.log(exc);
-			error( "Could not delete app settings");
-		}
-		if (!dir.exists())
-			info(prefPanel, "App settings deleted", "Success");
-		else{
-			String msg = "App settings could not be deleted";
-			warning(msg);
-			fh.log(msg);
-		}
-		loadPreferences();
-		appFrame.restart();
+		
 	}
 	public void prepareUI(){
 		/**
@@ -330,4 +266,9 @@ public class PreferencesManager extends View implements UIPreferences{
 		updatePreview();
 		applySettings();	
 	}
+	public static void main(String[] args) {
+		
+		
+	}
 }
+
