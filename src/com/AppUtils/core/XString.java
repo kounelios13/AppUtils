@@ -51,6 +51,7 @@ public class XString{
 	public XString(CharSequence s){
 		this.text.append(s);
 		length = s.length();
+	
 	}
 	public XString(char[] e){
 		this.text.append(e);
