@@ -2,6 +2,7 @@ package com.AppUtils.gui;
 import static messages.Message.error;
 import static messages.Message.info;
 import static messages.Message.warning;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.io.BufferedWriter;
@@ -11,7 +12,9 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.logging.FileHandler;
 import java.util.stream.Stream;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,11 +23,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import org.apache.commons.io.FileUtils;
-import gui.ApplicationScreen;
+
+
+import com.AppUtils.interfaces.UIPreferences;
+
 import gui.CustomColorChooser;
-import gui.View;
-import interfaces.UIPreferences;
 import net.miginfocom.swing.MigLayout;
 import serializable.Settings;
 @SuppressWarnings({"static-access", "serial"})
@@ -53,7 +56,7 @@ public class PreferencesManager extends View implements UIPreferences{
 	private JLabel lblButtonFontSize = new JLabel("Button font size"),
 				   lblLabelFontSize  = new JLabel("Label font size"),
 				   lblSample		 = new JLabel("Label Sample");
-	private Font[] fonts = UIPreferences.fonts;
+	private Font[] fonts = com.AppUtils.interfaces.UIPreferences.fonts;
 	public boolean exists(){
 		return settingsFile.exists();
 	}
