@@ -1,5 +1,8 @@
 package com.AppUtils.core;
 public class XString{
+	/**
+	 * A class that tries to mimic StringBuilder
+	 * */
 	private StringBuilder text = new StringBuilder();
 	private int length = 0;
 	public int length(){
@@ -43,7 +46,14 @@ public class XString{
 	public String toString(){
 		return text.toString();
 	}
+	/**
+	 * Create an empty instance of XString
+	 * which means an empty StringBuilder with a length of 0
+	 * **/
 	public XString(){}
+	/*
+	 * @param message Content of the StringBuffer
+	 * **/
 	public XString(String message){
 		this.text.append(message);
 		length = message.length();
