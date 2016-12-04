@@ -91,7 +91,8 @@ public class PreferencesManager extends View implements UIPreferences{
 		applyOnly.addActionListener((e)->applySettings());
 	}
 	/**
-	 * @wbp.parser.constructor
+	 * 
+	 * @param frame An instance of an ApplicationScreen object to work on
 	 */
 	public PreferencesManager(ApplicationScreen frame) {
 		super("Preferences",600,800,false);
@@ -123,7 +124,7 @@ public class PreferencesManager extends View implements UIPreferences{
 	}
 	@Override
 	public void loadPreferences(){
-		/*
+		/**
 		 * Since we use a proxy if an exception is thrown the program will not start
 		 * so by returning if something happens we can start our program normally
 		 */
