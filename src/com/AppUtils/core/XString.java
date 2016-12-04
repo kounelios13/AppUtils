@@ -1,10 +1,17 @@
 package com.AppUtils.core;
+/**
+ * 
+ * @author "Manos Kounelakis"
+ * **/
 public class XString{
 	/**
 	 * A class that tries to mimic StringBuilder
 	 * */
 	private StringBuilder text = new StringBuilder();
 	private int length = 0;
+	/**
+	 *@return The length of the string builder
+	 * */
 	public int length(){
 		return length;
 	}
@@ -17,6 +24,9 @@ public class XString{
 		this.text.delete(0,length).append(txt);
 		length = txt.length();
 	}
+	/***
+	 * @return the text of the string builder
+	 * **/
 	public String getText(){
 		return toString();
 	}
@@ -27,20 +37,27 @@ public class XString{
 		length +=name.length(); 
 		return this;
 	}
-	public void appendNewLine(){
+	/**
+	 * Append a new line to the current String Builder
+	 * @return the object that called the method
+	 * */
+	public XString appendNewLine(){
 		this.text.append("\n");
+		return this;
 	}
-	public void appendNewLine(int times){
+	public XString appendNewLine(int times){
 		for(int i=0;i<Math.abs(times);i++)
 			appendNewLine();
+		return this;
 	}
 	public XString reverse(){
 		 text.reverse();
 		 return this;
 	}
-	public void clear(){
+	public XString clear(){
 		length = 0;
 		setText("");
+		return this;
 	}
 	@Override
 	public String toString(){
@@ -52,7 +69,7 @@ public class XString{
 	 * **/
 	public XString(){}
 	/*
-	 * @param message Content of the StringBuffer
+	 * @param message Content of the StringBuilder
 	 * **/
 	public XString(String message){
 		this.text.append(message);
@@ -67,6 +84,9 @@ public class XString{
 		this.text.append(e);
 		length = e.length;
 	}
+	/**
+	 * @return  True if the string builder is empty else false
+	 * */
 	public boolean isEmpty(){
 		return length < 1;
 	}
