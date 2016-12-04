@@ -61,7 +61,7 @@ public class CryptoUtils {
 	 * @throws NoSuchAlgorithmException
 	 * @throws UnsupportedEncodingException
 	 */
-	public boolean isHashCorrect(String text,String hash ,String hashAlgorithm) throws NoSuchAlgorithmException, UnsupportedEncodingException{
+	public static boolean isHashCorrect(String text,String hash ,String hashAlgorithm) throws NoSuchAlgorithmException, UnsupportedEncodingException{
 		return stringToSpecificHash(hashAlgorithm,text).equals(hash);
 		
 	}
